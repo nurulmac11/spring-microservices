@@ -61,7 +61,7 @@ public class AuthenticationController {
 
     @GetMapping("/demo")
     public ResponseEntity<String> sayHello() {
-        return ResponseEntity.ok("Hello from secured endpoint");
+        return ResponseEntity.ok("Hello from auth service");
     }
 
     @GetMapping("/validate_token")
