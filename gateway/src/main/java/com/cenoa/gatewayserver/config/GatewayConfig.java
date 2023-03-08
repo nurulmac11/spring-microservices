@@ -22,9 +22,14 @@ public class GatewayConfig {
                         .filters(f -> f
                                 .rewritePath("/auth/(?<segment>.*)","/api/auth/${segment}")
                                 .filter(authFilter.apply(new AuthenticationPrefilter.Config()))
-//                                .filter(filter)
                         )
                         .uri("http://auth:8081"))
+                .route("transaction", r -> r.path("/transaction/**")
+                        .filters(f -> f
+                                .rewritePath("/transaction/(?<segment>.*)","/api/transaction/${segment}")
+                                .filter(authFilter.apply(new AuthenticationPrefilter.Config()))
+                        )
+                        .uri("http://transaction:8082"))
                 .build();
     }
 

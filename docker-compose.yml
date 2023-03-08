@@ -31,6 +31,26 @@ services:
     networks:
       - spring-cloud-network
 
+  transaction:
+    build: ./transactions
+    expose:
+      - 8082
+    depends_on:
+      - transaction-db
+    networks:
+      - spring-cloud-network
+
+  transaction-db:
+    image: mysql:8
+    ports:
+      - "3308:3306"
+    environment:
+      - MYSQL_DATABASE=transaction
+      - MYSQL_ROOT_PASSWORD=mysqlrootpw
+      - MYSQL_PORT=3306
+    networks:
+      - spring-cloud-network
+
 networks:
   spring-cloud-network:
     driver: bridge
