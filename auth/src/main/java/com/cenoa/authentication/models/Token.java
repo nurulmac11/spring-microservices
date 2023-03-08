@@ -1,6 +1,7 @@
-package com.cenoa.authentication.token;
+package com.cenoa.authentication.models;
 
-import com.cenoa.authentication.user.User;
+import com.cenoa.authentication.dtos.TokenType;
+import com.cenoa.authentication.models.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

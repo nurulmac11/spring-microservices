@@ -1,5 +1,6 @@
-package com.cenoa.authentication.user;
+package com.cenoa.authentication.repositories;
 
+import com.cenoa.authentication.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

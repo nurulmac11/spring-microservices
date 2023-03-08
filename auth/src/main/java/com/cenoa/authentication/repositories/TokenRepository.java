@@ -1,5 +1,6 @@
-package com.cenoa.authentication.token;
+package com.cenoa.authentication.repositories;
 
+import com.cenoa.authentication.models.Token;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 

@@ -1,6 +1,7 @@
 package com.cenoa.authentication.config;
 
-import com.cenoa.authentication.token.TokenRepository;
+import com.cenoa.authentication.services.JwtService;
+import com.cenoa.authentication.repositories.TokenRepository;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

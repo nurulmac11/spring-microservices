@@ -1,6 +1,11 @@
-package com.cenoa.authentication.auth;
+package com.cenoa.authentication.controllers;
 
-import com.cenoa.authentication.user.User;
+import com.cenoa.authentication.dtos.AuthenticationRequest;
+import com.cenoa.authentication.dtos.AuthenticationResponse;
+import com.cenoa.authentication.dtos.ConnValidationResponse;
+import com.cenoa.authentication.dtos.RegisterRequest;
+import com.cenoa.authentication.services.AuthenticationService;
+import com.cenoa.authentication.models.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;

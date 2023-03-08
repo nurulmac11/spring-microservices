@@ -1,12 +1,14 @@
-package com.cenoa.authentication.auth;
+package com.cenoa.authentication.services;
 
-import com.cenoa.authentication.config.JwtService;
-import com.cenoa.authentication.token.Token;
-import com.cenoa.authentication.token.TokenRepository;
-import com.cenoa.authentication.token.TokenType;
-import com.cenoa.authentication.user.Role;
-import com.cenoa.authentication.user.User;
-import com.cenoa.authentication.user.UserRepository;
+import com.cenoa.authentication.dtos.AuthenticationRequest;
+import com.cenoa.authentication.dtos.AuthenticationResponse;
+import com.cenoa.authentication.dtos.RegisterRequest;
+import com.cenoa.authentication.models.Token;
+import com.cenoa.authentication.repositories.TokenRepository;
+import com.cenoa.authentication.dtos.TokenType;
+import com.cenoa.authentication.dtos.Role;
+import com.cenoa.authentication.models.User;
+import com.cenoa.authentication.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
