@@ -64,10 +64,9 @@ public class AuthenticationController {
     System.out.println("--------------------------------------------------------------");
 
     String username = (String) principal.getName();
-    String token = (String) "sdfsdfds";
     List<GrantedAuthority> grantedAuthorities = (List<GrantedAuthority>) auth.getAuthorities();
     return ResponseEntity.ok(ConnValidationResponse.builder().status("OK").methodType(HttpMethod.GET.name())
-            .username(username).token(token).authorities(grantedAuthorities)
+            .username(username).authorities(grantedAuthorities)
             .isAuthenticated(true).build());
   }
 
