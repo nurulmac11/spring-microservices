@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.Date;
+
 @Data
 @Builder
 @NoArgsConstructor
@@ -25,8 +27,21 @@ public class Token {
   public TokenType tokenType = TokenType.BEARER;
 
   public boolean revoked;
-
   public boolean expired;
+
+  private Date created = new Date();
+  private Date updated = new Date();
+
+  @PrePersist
+  protected void prePersist() {
+    if (this.created == null) created = new Date();
+    if (this.updated == null) updated = new Date();
+  }
+
+  @PreUpdate
+  protected void preUpdate() {
+    this.updated= new Date();
+  }
 
   @ManyToOne
   @JoinColumn(name = "user_id")

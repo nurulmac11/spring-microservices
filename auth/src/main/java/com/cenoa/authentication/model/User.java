@@ -11,6 +11,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 
 @Data
@@ -30,6 +31,20 @@ public class User implements UserDetails {
   private String password;
 
   private Double balance;
+
+  private Date created = new Date();
+  private Date updated = new Date();
+
+  @PrePersist
+  protected void prePersist() {
+    if (this.created == null) created = new Date();
+    if (this.updated == null) updated = new Date();
+  }
+
+  @PreUpdate
+  protected void preUpdate() {
+    this.updated= new Date();
+  }
 
   @Enumerated(EnumType.STRING)
   private Role role;
