@@ -1,6 +1,6 @@
-package com.cenoa.authentication.models;
+package com.cenoa.authentication.model;
 
-import com.cenoa.authentication.dtos.Role;
+import com.cenoa.authentication.dto.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

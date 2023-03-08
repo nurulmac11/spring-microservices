@@ -1,13 +1,11 @@
-package com.cenoa.authentication.dtos;
+package com.cenoa.authentication.dto;
 
 import lombok.Builder;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.ToString;
 import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
-import java.util.Set;
 
 @Getter
 @Builder

@@ -1,4 +1,4 @@
-package com.cenoa.authentication.services;
+package com.cenoa.authentication.service;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

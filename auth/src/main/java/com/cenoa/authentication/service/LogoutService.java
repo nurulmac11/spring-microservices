@@ -1,6 +1,6 @@
-package com.cenoa.authentication.services;
+package com.cenoa.authentication.service;
 
-import com.cenoa.authentication.repositories.TokenRepository;
+import com.cenoa.authentication.repository.TokenRepository;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;

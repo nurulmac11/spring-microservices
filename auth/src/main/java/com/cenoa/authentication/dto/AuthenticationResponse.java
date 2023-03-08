@@ -1,4 +1,4 @@
-package com.cenoa.authentication.dtos;
+package com.cenoa.authentication.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,6 @@
 package com.cenoa.authentication.config;
 
-import com.cenoa.authentication.repositories.UserRepository;
+import com.cenoa.authentication.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
