@@ -1,4 +1,4 @@
-package com.cenoa.transactions.controllers;
+package com.cenoa.transactions.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
