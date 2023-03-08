@@ -44,10 +44,22 @@ services:
     image: mysql:8
     ports:
       - "3308:3306"
+    depends_on:
+      - rabbitmq
     environment:
       - MYSQL_DATABASE=transaction
       - MYSQL_ROOT_PASSWORD=mysqlrootpw
       - MYSQL_PORT=3306
+    networks:
+      - spring-cloud-network
+
+  rabbitmq:
+    image: rabbitmq:management
+    expose:
+      - 5672
+    ports:
+      - "5672:5672"
+      - "15672:15672"
     networks:
       - spring-cloud-network
 
