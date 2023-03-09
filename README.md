@@ -15,6 +15,8 @@ This command build all 3 projects using maven and then build dockers using docke
 
 In the most cases you need to have Maven and JDK17+. The best way to run the sample applications is with IDEs like IntelliJ IDEA or Eclipse.
 
+Also you can use Insomnia to test api endpoints after building. Insomnia config file is added to root of the repository. You can import it to Insomnia and test endpoints without any configuration.
+
 ## Architecture
 
 Our sample microservices-based system consists of the following modules:
