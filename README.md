@@ -26,5 +26,11 @@ The following picture illustrates the architecture described above.
 
 ![arch diagram](assets/arch.png)
 
-
-
+## Things to improve/add
+- Decouple authentication and user services
+- Add a config service to manage configs
+- Add a discovery service such as eureka
+- Add unit and integration tests
+- Enable Swagger documentation
+- Better error handling
+- Add more endpoints such as; viewing all transactions
