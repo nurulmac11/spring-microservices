@@ -27,6 +27,8 @@ public class Deposit {
   private Double amount;
   private Double preDeposit;
 
+  private boolean completed = false;
+
   private Date created = new Date();
 
   @PrePersist
