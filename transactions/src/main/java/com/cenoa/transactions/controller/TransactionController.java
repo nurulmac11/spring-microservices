@@ -3,6 +3,7 @@ package com.cenoa.transactions.controller;
 import com.cenoa.transactions.client.UserClient;
 import com.cenoa.transactions.dto.*;
 import com.cenoa.transactions.model.Deposit;
+import com.cenoa.transactions.model.Transfer;
 import com.cenoa.transactions.model.Withdraw;
 import com.cenoa.transactions.service.RabbitMQService;
 import com.cenoa.transactions.service.TransactionService;
@@ -85,6 +86,8 @@ public class TransactionController {
 
         if (withdrawAmount <= 0) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Amount has to be a positive number.");
+        } else if (withdrawAmount > balance) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("You don't have enough money on your account.");
         }
 
         // Create deposit dto
@@ -107,6 +110,50 @@ public class TransactionController {
                 .build();
         mqService.sendMessage(msg);
         return ResponseEntity.ok("Withdraw will made. Current balance: " + balance);
+    }
+
+
+    @PostMapping("/transfer")
+    public ResponseEntity<String> transfer(
+            @RequestHeader("user_id") String user_id,
+            @RequestHeader("Authorization") String token,
+            @RequestBody TransferRequest request
+    ) {
+        int id = Integer.parseInt(user_id);
+        // Get current balance of user
+        UserDto user = userClient.getUserDetails(token);
+        double balance = user.getBalance();
+        double transferAmount = request.getAmount();
+        int toUser = request.getTo_user_id();
+
+        if (transferAmount <= 0) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Amount has to be a positive number.");
+        } else if (transferAmount > balance) {
+            return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("You don't have enough money on your account.");
+        }
+
+        // Create deposit dto
+        var transfer = NewTransfer.builder()
+                .preTransfer(balance)
+                .amount(transferAmount)
+                .to_user_id(toUser)
+                .completed(false)
+                .user_id(id)
+                .build();
+
+        // Create withdraw record on db
+        Transfer transferObject = transactionService.new_transfer(transfer);
+
+        // Send deposit details to queue to processed later
+        var msg = MqMessage.builder()
+                .amount(transferAmount)
+                .operation("transfer")
+                .db_id(transferObject.getId())
+                .user_id(id)
+                .to_user_id(toUser)
+                .build();
+        mqService.sendMessage(msg);
+        return ResponseEntity.ok("Transfer will made. Current balance: " + balance);
     }
 
 }

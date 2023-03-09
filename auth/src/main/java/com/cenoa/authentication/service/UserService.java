@@ -23,4 +23,11 @@ public class UserService {
   public void withdraw(double amount, int user_id) {
     repository.withdraw(amount, user_id);
   }
+
+  public void transfer(double amount, int user_id, int to_user_id) {
+    // withdraw from
+    repository.withdraw(amount, user_id);
+    // deposit to other account
+    repository.deposit(amount, to_user_id);
+  }
 }

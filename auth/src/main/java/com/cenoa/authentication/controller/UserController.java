@@ -1,6 +1,7 @@
 package com.cenoa.authentication.controller;
 
 import com.cenoa.authentication.dto.Deposit;
+import com.cenoa.authentication.dto.Transfer;
 import com.cenoa.authentication.dto.Withdraw;
 import com.cenoa.authentication.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -34,4 +35,11 @@ public class UserController {
         return ResponseEntity.ok("");
     }
 
+    @PostMapping("/transfer")
+    public ResponseEntity<String> transfer(
+            @RequestBody Transfer transfer
+    ) {
+        userService.transfer(transfer.getAmount(), transfer.getUser_id(), transfer.getTo_user_id());
+        return ResponseEntity.ok("");
+    }
 }

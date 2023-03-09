@@ -29,6 +29,7 @@ public class Transfer {
   private Double preAmountFrom;
   private Double preAmountTo;
 
+  private boolean completed = false;
   private Date created = new Date();
 
   @PrePersist

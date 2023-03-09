@@ -40,6 +40,8 @@ public class RabbitMQService {
             userClient.deposit(in);
         } else if (Objects.equals(operation, "withdraw")) {
             userClient.withdraw(in);
+        } else if (Objects.equals(operation, "transfer")) {
+            userClient.transfer(in);
         }
     }
 }

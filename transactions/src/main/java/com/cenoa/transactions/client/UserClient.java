@@ -1,9 +1,6 @@
 package com.cenoa.transactions.client;
 
-import com.cenoa.transactions.dto.DepositRequestClient;
-import com.cenoa.transactions.dto.MqMessage;
-import com.cenoa.transactions.dto.UserDto;
-import com.cenoa.transactions.dto.WithdrawRequestClient;
+import com.cenoa.transactions.dto.*;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -54,6 +51,26 @@ public class UserClient {
         webClient.post()
                 .uri("/user/withdraw")
                 .body(Mono.just(request), DepositRequestClient.class)
+                .exchangeToMono(
+                        clientResponse -> {
+                            if ( clientResponse.statusCode().isError() ) { // or clientResponse.statusCode().value() >= 400
+                                return clientResponse.createException().flatMap( Mono::error );
+                            }
+                            return clientResponse.bodyToMono(Void.class);
+                        }
+                )
+                .block();
+    }
+
+    public void transfer(MqMessage mqMessage) {
+        var request = TransferRequestClient.builder()
+                .amount(mqMessage.amount())
+                .user_id(mqMessage.user_id())
+                .to_user_id(mqMessage.to_user_id())
+                .build();
+        webClient.post()
+                .uri("/user/transfer")
+                .body(Mono.just(request), TransferRequestClient.class)
                 .exchangeToMono(
                         clientResponse -> {
                             if ( clientResponse.statusCode().isError() ) { // or clientResponse.statusCode().value() >= 400

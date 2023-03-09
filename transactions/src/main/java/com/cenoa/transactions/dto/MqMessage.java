@@ -9,7 +9,7 @@ import lombok.Builder;
 public record MqMessage(
         @JsonProperty("operation") String operation,
         @JsonProperty("amount") double amount,
-        @JsonProperty("to") int to,
+        @JsonProperty("to_user_id") int to_user_id,
         @JsonProperty("db_id") int db_id,
         @JsonProperty("user_id") int user_id
 )
