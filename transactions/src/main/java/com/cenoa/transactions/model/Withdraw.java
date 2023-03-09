@@ -27,6 +27,7 @@ public class Withdraw {
   private Double amount;
   private Double preWithdraw;
 
+  private boolean completed = false;
   private Date created = new Date();
 
   @PrePersist
