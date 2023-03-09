@@ -61,8 +61,8 @@ public class TransactionController {
         var msg = MqMessage.builder()
                 .amount(depositAmount)
                 .operation("deposit")
-                .db_id(depositObject.getId())
-                .user_id(id)
+                .dbId(depositObject.getId())
+                .userId(id)
                 .build();
         mqService.sendMessage(msg);
         return ResponseEntity.ok("Deposit will made. Current balance: " + balance);
@@ -97,12 +97,12 @@ public class TransactionController {
         // Create withdraw record on db
         Withdraw withdrawObject = transactionService.new_withdraw(withdraw);
 
-        // Send deposit details to queue to processed later
+        // Send withdraw details to queue to processed later
         var msg = MqMessage.builder()
                 .amount(withdrawAmount)
                 .operation("withdraw")
-                .db_id(withdrawObject.getId())
-                .user_id(id)
+                .dbId(withdrawObject.getId())
+                .userId(id)
                 .build();
         mqService.sendMessage(msg);
         return ResponseEntity.ok("Withdraw will made. Current balance: " + balance);
@@ -140,13 +140,13 @@ public class TransactionController {
         // Create withdraw record on db
         Transfer transferObject = transactionService.new_transfer(transfer);
 
-        // Send deposit details to queue to processed later
+        // Send transfer details to queue to processed later
         var msg = MqMessage.builder()
                 .amount(transferAmount)
                 .operation("transfer")
-                .db_id(transferObject.getId())
-                .user_id(id)
-                .to_user_id(toUser)
+                .dbId(transferObject.getId())
+                .userId(id)
+                .toUserId(toUser)
                 .build();
         mqService.sendMessage(msg);
         return ResponseEntity.ok("Transfer will made. Current balance: " + balance);

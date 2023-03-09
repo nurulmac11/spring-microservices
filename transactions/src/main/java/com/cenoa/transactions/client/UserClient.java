@@ -44,7 +44,7 @@ public class UserClient {
     public void deposit(MqMessage mqMessage) {
         var request = DepositRequestClient.builder()
                         .amount(mqMessage.amount())
-                                .userId(mqMessage.user_id())
+                                .userId(mqMessage.userId())
                                         .build();
         webClient.post()
                 .uri("/user/deposit")
@@ -54,7 +54,7 @@ public class UserClient {
                             if ( clientResponse.statusCode().isError() ) { // or clientResponse.statusCode().value() >= 400
                                 return clientResponse.createException().flatMap( Mono::error );
                             }
-                            transactionService.markDepositCompleted(mqMessage.db_id());
+                            transactionService.markDepositCompleted(mqMessage.dbId());
                             return clientResponse.bodyToMono(Void.class);
                         }
                 )
@@ -70,7 +70,7 @@ public class UserClient {
     public void withdraw(MqMessage mqMessage) {
         var request = WithdrawRequestClient.builder()
                 .amount(mqMessage.amount())
-                .userId(mqMessage.user_id())
+                .userId(mqMessage.userId())
                 .build();
         webClient.post()
                 .uri("/user/withdraw")
@@ -80,7 +80,7 @@ public class UserClient {
                             if ( clientResponse.statusCode().isError() ) { // or clientResponse.statusCode().value() >= 400
                                 return clientResponse.createException().flatMap( Mono::error );
                             }
-                            transactionService.markWithdrawCompleted(mqMessage.db_id());
+                            transactionService.markWithdrawCompleted(mqMessage.dbId());
                             return clientResponse.bodyToMono(Void.class);
                         }
                 )
@@ -96,8 +96,8 @@ public class UserClient {
     public void transfer(MqMessage mqMessage) {
         var request = TransferRequestClient.builder()
                 .amount(mqMessage.amount())
-                .userId(mqMessage.user_id())
-                .toUserId(mqMessage.to_user_id())
+                .userId(mqMessage.userId())
+                .toUserId(mqMessage.toUserId())
                 .build();
         webClient.post()
                 .uri("/user/transfer")
@@ -107,7 +107,7 @@ public class UserClient {
                             if ( clientResponse.statusCode().isError() ) { // or clientResponse.statusCode().value() >= 400
                                 return clientResponse.createException().flatMap( Mono::error );
                             }
-                            transactionService.markTransferCompleted(mqMessage.db_id());
+                            transactionService.markTransferCompleted(mqMessage.dbId());
                             return clientResponse.bodyToMono(Void.class);
                         }
                 )
