@@ -72,6 +72,7 @@ public class AuthenticationController {
         User jwtUser = (User) auth.getPrincipal();
         //Get the username of the logged-in user: getPrincipal()
         System.out.println("auth.getPrincipal()=>" + jwtUser.getUsername());
+        System.out.println("auth.getId()=>" + jwtUser.getId());
         //Get the password of the authenticated user: getCredentials()
         System.out.println("auth.getCredentials()=>" + auth.getCredentials());
         //Get the assigned roles of the authenticated user: getAuthorities()
@@ -83,7 +84,7 @@ public class AuthenticationController {
         String username = (String) principal.getName();
         List<GrantedAuthority> grantedAuthorities = (List<GrantedAuthority>) auth.getAuthorities();
         return ResponseEntity.ok(ConnValidationResponse.builder().status("OK").methodType(HttpMethod.GET.name())
-                .username(username).authorities(grantedAuthorities)
+                .username(username).authorities(grantedAuthorities).id(jwtUser.getId())
                 .isAuthenticated(true).build());
     }
 

@@ -11,6 +11,7 @@ import java.util.List;
 @Builder
 @ToString
 public class ConnValidationResponse {
+    private Integer id;
     private String status;
     private boolean isAuthenticated;
     private String methodType;

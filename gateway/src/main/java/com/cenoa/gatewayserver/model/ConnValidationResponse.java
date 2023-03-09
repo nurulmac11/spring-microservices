@@ -10,6 +10,7 @@ import java.util.List;
 @ToString
 @NoArgsConstructor
 public class ConnValidationResponse {
+    private Integer id;
     private String status;
     private boolean isAuthenticated;
     private String methodType;
