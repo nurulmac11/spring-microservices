@@ -1,6 +1,9 @@
-read -p "Build spring projects?: " -n 1 -r
+read -p "Build spring projects?: " -n 1 -r spring
 echo    
-if [[ $REPLY =~ ^[Yy]$ ]]
+read -p "Build docker?: " -n 1 -r docker
+echo    
+
+if [[ $spring =~ ^[Yy]$ ]]
 then
   cd auth
   ./mvnw clean package -DskipTests 
@@ -10,10 +13,10 @@ then
   ./mvnw clean package -DskipTests 
 fi
 
-read -p "Build docker?: " -n 1 -r
-echo    
-if [[ $REPLY =~ ^[Yy]$ ]]
+if [[ $docker =~ ^[Yy]$ ]]
 then
   docker-compose up --build
+else
+  docker-compose start && docker-compose logs
 fi
 
