@@ -1,6 +1,9 @@
 package com.cenoa.transactions.client;
 
 import com.cenoa.transactions.dto.*;
+import com.cenoa.transactions.service.TransactionService;
+import lombok.AllArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
@@ -8,11 +11,13 @@ import reactor.core.publisher.Mono;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class UserClient {
 
     private final String base_url = "http://auth:8081/api/";
     WebClient webClient = WebClient.create(base_url);
 
+    private final TransactionService transactionService;
 
     public UserDto getUserDetails(String token) {
         UserDto user = webClient.get()
@@ -37,6 +42,7 @@ public class UserClient {
                             if ( clientResponse.statusCode().isError() ) { // or clientResponse.statusCode().value() >= 400
                                 return clientResponse.createException().flatMap( Mono::error );
                             }
+                            transactionService.markDepositCompleted(mqMessage.db_id());
                             return clientResponse.bodyToMono(Void.class);
                         }
                 )
@@ -56,6 +62,7 @@ public class UserClient {
                             if ( clientResponse.statusCode().isError() ) { // or clientResponse.statusCode().value() >= 400
                                 return clientResponse.createException().flatMap( Mono::error );
                             }
+                            transactionService.markWithdrawCompleted(mqMessage.db_id());
                             return clientResponse.bodyToMono(Void.class);
                         }
                 )
@@ -76,6 +83,7 @@ public class UserClient {
                             if ( clientResponse.statusCode().isError() ) { // or clientResponse.statusCode().value() >= 400
                                 return clientResponse.createException().flatMap( Mono::error );
                             }
+                            transactionService.markTransferCompleted(mqMessage.db_id());
                             return clientResponse.bodyToMono(Void.class);
                         }
                 )
