@@ -19,7 +19,7 @@ In the most cases you need to have Maven and JDK17+. The best way to run the sam
 
 Our sample microservices-based system consists of the following modules:
 - **gateway-service** - a module that Spring Cloud for running Spring Boot application that acts as a proxy/gateway in our architecture.
-- **auth-service** - a module for authenticating requests and serving user details
+- **auth-service** - a module for authenticating requests using jwt and serving user details
 - **transaction-service** - a module for executing transaction operations like deposit, withdraw and transfer using rabbitmq as queue service
 
 The following picture illustrates the architecture described above.
