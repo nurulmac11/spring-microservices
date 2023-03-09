@@ -34,5 +34,6 @@ public class RabbitMQService {
         System.out.println(in.operation());
         System.out.println(in.amount());
         System.out.println(in.to());
+        System.out.println(in.db_id());
     }
 }

@@ -9,7 +9,8 @@ import lombok.Builder;
 public record MqMessage(
         @JsonProperty("operation") String operation,
         @JsonProperty("amount") double amount,
-        @JsonProperty("to") int to
+        @JsonProperty("to") int to,
+        @JsonProperty("db_id") int db_id
         )
         implements Serializable {
 }
