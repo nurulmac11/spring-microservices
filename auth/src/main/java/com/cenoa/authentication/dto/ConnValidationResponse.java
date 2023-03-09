@@ -7,6 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 
 import java.util.List;
 
+/**
+ * Used as dto object in between auth and gateway service for token validation for each request
+ */
 @Getter
 @Builder
 @ToString

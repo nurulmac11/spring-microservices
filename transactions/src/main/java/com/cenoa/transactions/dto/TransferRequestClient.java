@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class TransferRequestClient {
   private double amount;
-  private int user_id;
-  private int to_user_id;
+  private int userId;
+  private int toUserId;
 }

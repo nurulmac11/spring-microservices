@@ -22,8 +22,15 @@ public class SecurityConfiguration {
     private final AuthenticationProvider authenticationProvider;
     private final LogoutHandler logoutHandler;
 
+    /**
+     * Allow all requests since we are checking token on api gateway and disable csrf
+     * @param http httpsecurity object
+     * @return securityfilterchain object
+     * @throws Exception http
+     */
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+        //
         http
                 .csrf().disable()
                 .authorizeHttpRequests()

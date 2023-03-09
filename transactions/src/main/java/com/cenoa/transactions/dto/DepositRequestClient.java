@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class DepositRequestClient {
   private double amount;
-  private int user_id;
+  private int userId;
 }

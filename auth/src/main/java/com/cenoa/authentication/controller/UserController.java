@@ -5,7 +5,6 @@ import com.cenoa.authentication.dto.Transfer;
 import com.cenoa.authentication.dto.Withdraw;
 import com.cenoa.authentication.service.UserService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,7 +22,7 @@ public class UserController {
     public ResponseEntity<String> deposit(
             @RequestBody Deposit deposit
     ) {
-        userService.deposit(deposit.getAmount(), deposit.getUser_id());
+        userService.deposit(deposit.getAmount(), deposit.getUserId());
         return ResponseEntity.ok("");
     }
 
@@ -31,7 +30,7 @@ public class UserController {
     public ResponseEntity<String> deposit(
             @RequestBody Withdraw withdraw
     ) {
-        userService.withdraw(withdraw.getAmount(), withdraw.getUser_id());
+        userService.withdraw(withdraw.getAmount(), withdraw.getUserId());
         return ResponseEntity.ok("");
     }
 
@@ -39,7 +38,7 @@ public class UserController {
     public ResponseEntity<String> transfer(
             @RequestBody Transfer transfer
     ) {
-        userService.transfer(transfer.getAmount(), transfer.getUser_id(), transfer.getTo_user_id());
+        userService.transfer(transfer.getAmount(), transfer.getUserId(), transfer.getToUserId());
         return ResponseEntity.ok("");
     }
 }

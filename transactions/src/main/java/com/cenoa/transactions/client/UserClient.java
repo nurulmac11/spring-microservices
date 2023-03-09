@@ -2,7 +2,6 @@ package com.cenoa.transactions.client;
 
 import com.cenoa.transactions.dto.*;
 import com.cenoa.transactions.service.TransactionService;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -32,7 +31,7 @@ public class UserClient {
     public void deposit(MqMessage mqMessage) {
         var request = DepositRequestClient.builder()
                         .amount(mqMessage.amount())
-                                .user_id(mqMessage.user_id())
+                                .userId(mqMessage.user_id())
                                         .build();
         webClient.post()
                 .uri("/user/deposit")
@@ -52,7 +51,7 @@ public class UserClient {
     public void withdraw(MqMessage mqMessage) {
         var request = WithdrawRequestClient.builder()
                 .amount(mqMessage.amount())
-                .user_id(mqMessage.user_id())
+                .userId(mqMessage.user_id())
                 .build();
         webClient.post()
                 .uri("/user/withdraw")
@@ -72,8 +71,8 @@ public class UserClient {
     public void transfer(MqMessage mqMessage) {
         var request = TransferRequestClient.builder()
                 .amount(mqMessage.amount())
-                .user_id(mqMessage.user_id())
-                .to_user_id(mqMessage.to_user_id())
+                .userId(mqMessage.user_id())
+                .toUserId(mqMessage.to_user_id())
                 .build();
         webClient.post()
                 .uri("/user/transfer")

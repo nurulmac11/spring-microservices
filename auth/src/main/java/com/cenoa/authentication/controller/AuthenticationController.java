@@ -1,9 +1,9 @@
 package com.cenoa.authentication.controller;
 
 import com.cenoa.authentication.dto.*;
+import com.cenoa.authentication.model.User;
 import com.cenoa.authentication.repository.UserRepository;
 import com.cenoa.authentication.service.AuthenticationService;
-import com.cenoa.authentication.model.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -26,7 +26,7 @@ public class AuthenticationController {
     private final UserRepository userRepository;
 
     @PostMapping("/register")
-    public ResponseEntity register(
+    public ResponseEntity<?> register(
             @RequestBody RegisterRequest request
     ) {
         try {
@@ -44,14 +44,14 @@ public class AuthenticationController {
     }
 
     @GetMapping("/me")
-    public ResponseEntity me(Principal principal) {
+    public ResponseEntity<?> me(Principal principal) {
         Optional<User> user = userRepository.findByEmail(principal.getName());
         if (user.isPresent()) {
             User user_obj = user.get();
             return ResponseEntity.ok(UserDetails.builder()
                     .balance(user_obj.getBalance())
-                    .first_name(user_obj.getFirstname())
-                    .last_name(user_obj.getLastname())
+                    .firstName(user_obj.getFirstname())
+                    .lastName(user_obj.getLastname())
                     .email(user_obj.getEmail())
                     .build());
         } else {
@@ -64,6 +64,11 @@ public class AuthenticationController {
         return ResponseEntity.ok("Hello from auth service");
     }
 
+    /**
+     * Used for validating token coming from gateway service
+     * @param principal details of authenticated used
+     * @return ConnValidationResponse
+     */
     @GetMapping("/validate_token")
     public ResponseEntity<ConnValidationResponse> validateGet(Principal principal) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -81,7 +86,7 @@ public class AuthenticationController {
         System.out.println("auth.getDetails()=>" + auth.getDetails());
         System.out.println("--------------------------------------------------------------");
 
-        String username = (String) principal.getName();
+        String username = principal.getName();
         List<GrantedAuthority> grantedAuthorities = (List<GrantedAuthority>) auth.getAuthorities();
         return ResponseEntity.ok(ConnValidationResponse.builder().status("OK").methodType(HttpMethod.GET.name())
                 .username(username).authorities(grantedAuthorities).id(jwtUser.getId())

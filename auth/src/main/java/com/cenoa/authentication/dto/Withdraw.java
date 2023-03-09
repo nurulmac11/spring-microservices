@@ -10,6 +10,6 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Withdraw {
-  private int user_id;
+  private int userId;
   private double amount;
 }
