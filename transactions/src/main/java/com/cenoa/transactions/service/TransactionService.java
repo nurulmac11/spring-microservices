@@ -3,7 +3,6 @@ package com.cenoa.transactions.service;
 import com.cenoa.transactions.dto.NewDeposit;
 import com.cenoa.transactions.dto.NewTransfer;
 import com.cenoa.transactions.dto.NewWithdraw;
-import com.cenoa.transactions.dto.TransferRequest;
 import com.cenoa.transactions.model.Deposit;
 import com.cenoa.transactions.model.Transfer;
 import com.cenoa.transactions.model.Withdraw;
@@ -54,7 +53,7 @@ public class TransactionService {
         var depo = Deposit.builder()
                 .preDeposit(deposit.getPreDeposit())
                 .amount(deposit.getAmount())
-                .user_id(deposit.getUser_id())
+                .user_id(deposit.getUserId())
                 .completed(deposit.isCompleted()).build();
         return depositRepository.save(depo);
     }
@@ -63,7 +62,7 @@ public class TransactionService {
         var _withdraw = Withdraw.builder()
                 .preWithdraw(withdraw.getPreDeposit())
                 .amount(withdraw.getAmount())
-                .user_id(withdraw.getUser_id())
+                .user_id(withdraw.getUserId())
                 .completed(withdraw.isCompleted()).build();
         return withdrawRepository.save(_withdraw);
     }
@@ -72,8 +71,8 @@ public class TransactionService {
         var _withdraw = Transfer.builder()
                 .preAmountFrom(transfer.getPreTransfer())
                 .amount(transfer.getAmount())
-                .from_user_id(transfer.getUser_id())
-                .to_user_id(transfer.getTo_user_id())
+                .from_user_id(transfer.getUserId())
+                .to_user_id(transfer.getToUserId())
                 .completed(transfer.isCompleted()).build();
         return transferRepository.save(_withdraw);
     }

@@ -14,7 +14,7 @@ public class ConnValidationResponse {
     private String status;
     private boolean isAuthenticated;
     private String methodType;
-    private String username;
+    private String email;
     private String token;
     private List<Authorities> authorities;
 }

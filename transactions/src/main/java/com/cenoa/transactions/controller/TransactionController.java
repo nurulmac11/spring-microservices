@@ -8,15 +8,11 @@ import com.cenoa.transactions.model.Withdraw;
 import com.cenoa.transactions.service.RabbitMQService;
 import com.cenoa.transactions.service.TransactionService;
 import lombok.RequiredArgsConstructor;
-import lombok.With;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.core.AmqpTemplate;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.security.Principal;
-import java.util.Map;
 
 @RestController
 @RequestMapping("/api/transaction")
@@ -55,7 +51,7 @@ public class TransactionController {
                 .preDeposit(balance)
                 .amount(depositAmount)
                 .completed(false)
-                .user_id(id)
+                .userId(id)
                 .build();
 
         // Create deposit record on db
@@ -95,7 +91,7 @@ public class TransactionController {
                 .preDeposit(balance)
                 .amount(withdrawAmount)
                 .completed(false)
-                .user_id(id)
+                .userId(id)
                 .build();
 
         // Create withdraw record on db
@@ -124,7 +120,7 @@ public class TransactionController {
         UserDto user = userClient.getUserDetails(token);
         double balance = user.getBalance();
         double transferAmount = request.getAmount();
-        int toUser = request.getTo_user_id();
+        int toUser = request.getToUserId();
 
         if (transferAmount <= 0) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Amount has to be a positive number.");
@@ -136,9 +132,9 @@ public class TransactionController {
         var transfer = NewTransfer.builder()
                 .preTransfer(balance)
                 .amount(transferAmount)
-                .to_user_id(toUser)
+                .toUserId(toUser)
                 .completed(false)
-                .user_id(id)
+                .userId(id)
                 .build();
 
         // Create withdraw record on db

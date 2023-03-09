@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewDeposit {
-  private int user_id;
+  private int userId;
   private double amount;
   private double preDeposit;
   private boolean completed;

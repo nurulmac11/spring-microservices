@@ -86,10 +86,10 @@ public class AuthenticationController {
         System.out.println("auth.getDetails()=>" + auth.getDetails());
         System.out.println("--------------------------------------------------------------");
 
-        String username = principal.getName();
+        String email = principal.getName();
         List<GrantedAuthority> grantedAuthorities = (List<GrantedAuthority>) auth.getAuthorities();
         return ResponseEntity.ok(ConnValidationResponse.builder().status("OK").methodType(HttpMethod.GET.name())
-                .username(username).authorities(grantedAuthorities).id(jwtUser.getId())
+                .email(email).authorities(grantedAuthorities).id(jwtUser.getId())
                 .isAuthenticated(true).build());
     }
 

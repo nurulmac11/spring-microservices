@@ -8,6 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
 
+/**
+ * Contains methods to communicate with auth microservice
+ */
 @Service
 @Slf4j
 @RequiredArgsConstructor
@@ -18,6 +21,11 @@ public class UserClient {
 
     private final TransactionService transactionService;
 
+    /**
+     * Get user details from token
+     * @param token jwt token
+     * @return user dto object
+     */
     public UserDto getUserDetails(String token) {
         UserDto user = webClient.get()
                 .uri("/auth/me")
@@ -28,6 +36,11 @@ public class UserClient {
         return user;
     }
 
+    /**
+     * Retrieves rabbitmq message as parameter,
+     * sends a request to auth service for depositing money to account
+     * @param mqMessage rabbitmq message
+     */
     public void deposit(MqMessage mqMessage) {
         var request = DepositRequestClient.builder()
                         .amount(mqMessage.amount())
@@ -48,6 +61,12 @@ public class UserClient {
                 .block();
     }
 
+
+    /**
+     * retrieves rabbitmq message as parameter,
+     * sends a request to auth service to withdraw money from account
+     * @param mqMessage rabbitmq message
+     */
     public void withdraw(MqMessage mqMessage) {
         var request = WithdrawRequestClient.builder()
                 .amount(mqMessage.amount())
@@ -68,6 +87,12 @@ public class UserClient {
                 .block();
     }
 
+
+    /**
+     * retrieves rabbitmq message as parameter,
+     * sends a request to auth service to transfer money between accounts
+     * @param mqMessage rabbitmq message
+     */
     public void transfer(MqMessage mqMessage) {
         var request = TransferRequestClient.builder()
                 .amount(mqMessage.amount())

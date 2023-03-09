@@ -10,8 +10,8 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class NewTransfer {
-  private int user_id;
-  private int to_user_id;
+  private int userId;
+  private int toUserId;
   private double amount;
   private double preTransfer;
   private boolean completed;
