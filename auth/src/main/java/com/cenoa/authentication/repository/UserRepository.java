@@ -1,6 +1,7 @@
 package com.cenoa.authentication.repository;
 
 import com.cenoa.authentication.model.User;
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
@@ -15,7 +16,8 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   boolean existsUserByEmail(String email);
 
   @Modifying
-  @Query(value = "UPDATE Users SET balance = balance + ?1 WHERE id = ?2", nativeQuery = true)
+  @Transactional
+  @Query(value = "UPDATE _user SET balance = balance + ?1 WHERE id = ?2", nativeQuery = true)
   void deposit(double amount, int id);
 
 }

@@ -36,11 +36,6 @@ public class RabbitMQService {
     @RabbitListener(queues = queueName)
     public void listen(MqMessage in) {
         String operation = in.operation();
-        double amount = in.amount();
-        int user_id = in.user_id();
-        System.out.println(operation);
-        System.out.println(in.to());
-        System.out.println(in.db_id());
         if (Objects.equals(operation, "deposit")) {
             userClient.deposit(in);
         }
