@@ -1,7 +1,13 @@
-read -p "Build spring projects?: " -n 1 -r spring
-echo    
-read -p "Build docker?: " -n 1 -r docker
-echo    
+if [[ $1 == 's' ]]
+then
+  spring="y"
+  docker="y"
+else
+  read -p "Build spring projects?: " -n 1 -r spring
+  echo
+  read -p "Build docker?: " -n 1 -r docker
+  echo
+fi
 
 if [[ $spring =~ ^[Yy]$ ]]
 then
