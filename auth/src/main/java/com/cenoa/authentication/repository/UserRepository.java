@@ -20,4 +20,9 @@ public interface UserRepository extends JpaRepository<User, Integer> {
   @Query(value = "UPDATE _user SET balance = balance + ?1 WHERE id = ?2", nativeQuery = true)
   void deposit(double amount, int id);
 
+  @Modifying
+  @Transactional
+  @Query(value = "UPDATE _user SET balance = balance - ?1 WHERE id = ?2", nativeQuery = true)
+  void withdraw(double amount, int id);
+
 }

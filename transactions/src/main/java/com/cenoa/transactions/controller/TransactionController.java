@@ -68,7 +68,7 @@ public class TransactionController {
                 .user_id(id)
                 .build();
         mqService.sendMessage(msg);
-        return ResponseEntity.ok("Deposit will made.");
+        return ResponseEntity.ok("Deposit will made. Current balance: " + balance);
     }
 
     @PostMapping("/withdraw")
@@ -81,32 +81,32 @@ public class TransactionController {
         // Get current balance of user
         UserDto user = userClient.getUserDetails(token);
         double balance = user.getBalance();
-        double depositAmount = request.getAmount();
+        double withdrawAmount = request.getAmount();
 
-        if (depositAmount <= 0) {
+        if (withdrawAmount <= 0) {
             return ResponseEntity.status(HttpStatus.UNPROCESSABLE_ENTITY).body("Amount has to be a positive number.");
         }
 
         // Create deposit dto
         var withdraw = NewWithdraw.builder()
                 .preDeposit(balance)
-                .amount(depositAmount)
+                .amount(withdrawAmount)
                 .completed(false)
                 .user_id(id)
                 .build();
 
-        // Create deposit record on db
+        // Create withdraw record on db
         Withdraw withdrawObject = transactionService.new_withdraw(withdraw);
 
         // Send deposit details to queue to processed later
         var msg = MqMessage.builder()
-                .amount(depositAmount)
+                .amount(withdrawAmount)
                 .operation("withdraw")
                 .db_id(withdrawObject.getId())
                 .user_id(id)
                 .build();
         mqService.sendMessage(msg);
-        return ResponseEntity.ok("Withdrawwill made.");
+        return ResponseEntity.ok("Withdraw will made. Current balance: " + balance);
     }
 
 }

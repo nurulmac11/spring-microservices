@@ -38,6 +38,8 @@ public class RabbitMQService {
         String operation = in.operation();
         if (Objects.equals(operation, "deposit")) {
             userClient.deposit(in);
+        } else if (Objects.equals(operation, "withdraw")) {
+            userClient.withdraw(in);
         }
     }
 }

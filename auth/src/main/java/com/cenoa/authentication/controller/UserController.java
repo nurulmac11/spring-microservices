@@ -1,6 +1,7 @@
 package com.cenoa.authentication.controller;
 
 import com.cenoa.authentication.dto.Deposit;
+import com.cenoa.authentication.dto.Withdraw;
 import com.cenoa.authentication.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -22,6 +23,14 @@ public class UserController {
             @RequestBody Deposit deposit
     ) {
         userService.deposit(deposit.getAmount(), deposit.getUser_id());
+        return ResponseEntity.ok("");
+    }
+
+    @PostMapping("/withdraw")
+    public ResponseEntity<String> deposit(
+            @RequestBody Withdraw withdraw
+    ) {
+        userService.withdraw(withdraw.getAmount(), withdraw.getUser_id());
         return ResponseEntity.ok("");
     }
 

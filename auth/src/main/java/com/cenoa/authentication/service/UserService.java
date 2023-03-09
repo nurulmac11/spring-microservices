@@ -19,4 +19,8 @@ public class UserService {
   public void deposit(double amount, int user_id) {
     repository.deposit(amount, user_id);
   }
+
+  public void withdraw(double amount, int user_id) {
+    repository.withdraw(amount, user_id);
+  }
 }
