@@ -9,6 +9,9 @@ import java.util.function.Predicate;
 @Component
 public class RouterValidator {
 
+    /**
+     * Allow access to these endpoints without authentication
+     */
     public static final List<String> openApiEndpoints = List.of(
             "/auth/register",
             "/auth/login"

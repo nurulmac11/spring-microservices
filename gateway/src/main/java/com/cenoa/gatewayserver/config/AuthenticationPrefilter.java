@@ -2,10 +2,9 @@ package com.cenoa.gatewayserver.config;
 
 import com.cenoa.gatewayserver.model.Authorities;
 import com.cenoa.gatewayserver.model.ConnValidationResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.NoArgsConstructor;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.gateway.filter.GatewayFilter;
 import org.springframework.cloud.gateway.filter.factory.AbstractGatewayFilterFactory;
 import org.springframework.core.io.buffer.DataBufferFactory;
@@ -20,21 +19,19 @@ import org.springframework.web.server.ServerWebExchange;
 import reactor.core.publisher.Mono;
 
 @Component
+@RequiredArgsConstructor
 @Slf4j
 public class AuthenticationPrefilter extends AbstractGatewayFilterFactory<AuthenticationPrefilter.Config> {
 
     private final WebClient.Builder webClientBuilder;
+    private final RouterValidator routerValidator;
 
-    public AuthenticationPrefilter(WebClient.Builder webClientBuilder) {
-        super(Config.class);
-        this.webClientBuilder=webClientBuilder;
-    }
-
-    @Autowired
-    private ObjectMapper objectMapper;
-    @Autowired
-    private RouterValidator routerValidator;
-
+    /**
+     * Applied for each request to gateway
+     * Validates requestbefore rerouting to internal microservices
+     * @param config config
+     * @return filter
+     */
     @Override
     public GatewayFilter apply(Config config) {
         return (exchange, chain) -> {
@@ -61,7 +58,6 @@ public class AuthenticationPrefilter extends AbstractGatewayFilterFactory<Authen
                             HttpStatusCode errorCode = null;
                             String errorMsg = "";
                             if (error instanceof WebClientResponseException) {
-                                WebClientResponseException webCLientException = (WebClientResponseException) error;
                                 errorMsg = error.getMessage();
                                 errorCode = ((WebClientResponseException) error).getStatusCode();
                             } else {
@@ -78,7 +74,6 @@ public class AuthenticationPrefilter extends AbstractGatewayFilterFactory<Authen
 
     private Mono<Void> onError(ServerWebExchange exchange, String errCode, String err, String errDetails, HttpStatusCode httpStatus) {
         DataBufferFactory dataBufferFactory = exchange.getResponse().bufferFactory();
-//        ObjectMapper objMapper = new ObjectMapper();
         ServerHttpResponse response = exchange.getResponse();
         response.setStatusCode(httpStatus);
         response.getHeaders().add("Content-Type", "application/json");
@@ -89,7 +84,5 @@ public class AuthenticationPrefilter extends AbstractGatewayFilterFactory<Authen
 
     @NoArgsConstructor
     public static class Config {
-
-
     }
 }
