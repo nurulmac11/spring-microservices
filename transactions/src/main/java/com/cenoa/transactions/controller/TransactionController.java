@@ -41,6 +41,7 @@ public class TransactionController {
             @RequestBody DepositRequest request
     ) {
         int id = Integer.parseInt(user_id);
+        // Get current balance of user
         UserDto user = userClient.getUserDetails(token);
         double balance = user.getBalance();
         double depositAmount = request.getAmount();
@@ -61,10 +62,10 @@ public class TransactionController {
                 .amount(depositAmount)
                 .operation("deposit")
                 .db_id(depositObject.getId())
+                .user_id(id)
                 .build();
         mqService.sendMessage(msg);
         return ResponseEntity.ok("Deposit will made.");
     }
-
 
 }

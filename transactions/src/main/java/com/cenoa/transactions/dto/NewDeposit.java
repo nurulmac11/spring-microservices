@@ -11,5 +11,4 @@ public class NewDeposit {
   private double amount;
   private double preDeposit;
   private boolean completed;
-
 }

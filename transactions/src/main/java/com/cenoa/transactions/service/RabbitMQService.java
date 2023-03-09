@@ -1,5 +1,6 @@
 package com.cenoa.transactions.service;
 
+import com.cenoa.transactions.client.UserClient;
 import com.cenoa.transactions.dto.MqMessage;
 import lombok.AllArgsConstructor;
 import org.slf4j.Logger;
@@ -10,6 +11,8 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
 
+import java.util.Objects;
+
 
 @Service
 @AllArgsConstructor
@@ -18,6 +21,7 @@ public class RabbitMQService {
 
     private final RabbitTemplate rabbitTemplate;
     private final String queueName = "operations";
+    private final UserClient userClient;
 
     @Bean
     Queue queue() {
@@ -31,9 +35,14 @@ public class RabbitMQService {
 
     @RabbitListener(queues = queueName)
     public void listen(MqMessage in) {
-        System.out.println(in.operation());
-        System.out.println(in.amount());
+        String operation = in.operation();
+        double amount = in.amount();
+        int user_id = in.user_id();
+        System.out.println(operation);
         System.out.println(in.to());
         System.out.println(in.db_id());
+        if (Objects.equals(operation, "deposit")) {
+            userClient.deposit(in);
+        }
     }
 }
