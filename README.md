@@ -1,6 +1,6 @@
 # Microservices with Spring Cloud Advanced Demo Bank Project 
 
-In this project I'm demonstrating a simple banking application with 3 basic features; deposit, withdraw and transfer. Used Spring 6.0.4 and Java 17 for all microservices and I tried to use most up-to-date libraries and avoided deprecated ones.
+In this project I'm demonstrating a simple banking application with 3 basic features; deposit, withdraw. Used Spring 6.0.4 and Java 17 for all microservices and I tried to use most up-to-date libraries and avoided deprecated ones. To note; I developed this project to learn java, spring and microservices just in 2 weeks. So, there is a highly chance of that code has lots of flaws and not in it's best shape. 
 
 ## Getting Started
 
